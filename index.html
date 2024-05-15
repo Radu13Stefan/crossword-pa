@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross Word</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #005AA0; 
+            font-family: Arial, sans-serif;
+        }
+        title {
+            margin-top: 500px;
+            padding: 50px;
+        }
+
+        #Tabel {
+            float: left;
+            
+        }
+        #wrapper { 
+            width: 2200px;
+        }
+        #container {
+            width: 750px;
+          
+            margin: 1106px;
+            background-color: white; 
+            border-radius: 10px; 
+            margin-top: 25px; 
+            position: left;
+            
+        }
+        tbody{ 
+    
+            border-top: 75px;
+        }
+        table {
+            border: 1px solid red;
+        }
+
+        th {
+            width: 70px;
+            height: 70px;
+            background: rgb(189, 145, 145);
+            border: 1px solid gray;
+            position: relative;
+            cursor: grab;
+        }
+
+        .w:hover {
+            background: rgb(148, 141, 141);
+        }
+
+        .b {
+            background: black;
+            cursor: not-allowed;
+        }
+
+        .w {
+            background: white;
+        }
+
+        th span {
+            font-size: 20px;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+        th b {
+            font-size: 40px;
+            color: green;
+        }
+
+        button {
+            width: 200px;
+            height: 60px;
+            margin: 15px;
+            cursor: pointer;
+            border-radius: 30px;
+            border: none;
+            transition: white 0.3s ease, opacity 0.5s ease;
+            opacity: 40;
+        }
+
+        button#checkButton {
+            background: yellow; 
+        
+        
+        }
+        button#checkButton:hover{
+            background: orange;
+        }
+
+        button#clearButton {
+            background: red; 
+        }
+        button#clearButton:hover{
+            background: rgb(156, 5, 5);
+        }
+
+        button:hover {
+            background: green;
+        }
+
+        section {
+            display: flex;
+            background-color: white; 
+            border-radius: 20px; 
+            padding: 25px; 
+            position: right;
+            margin-bottom: 25px; 
+        }
+
+        li {
+            font-size: 25px;
+            word-spacing: 2px;
+            letter-spacing: 1px;
+            font-weight: bolder;
+        }
+
+        h2 {
+            text-align: center; 
+            text-decoration: underline; 
+        }
+
+        #image {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px;
+            height: 100px;
+        }
+        #timer{
+        border: 2px solid black;
+        padding: 10px;
+        display: inline-block;
+        font-size: 20px;
+        margin-left: 10px;
+        margin-top: 10px;
+        border-radius: 20px;
+        background-color: red;
+        transition: color 0.5s, background-color 0.5s;
+        }
+        .normalcolor{
+            color: black;
+            background-color: red;
+        }
+        #timer:hover { 
+            color: red;
+            background: black;
+            cursor: default;
+        }           
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+    <img src="Logo.png" alt="Logo" id="image">
+    <div id="title"><h1 style="text-align:center;padding-top: 35px;padding-bottom: 71px;">Crossword P.A.</h1>
+    </div>
+    <div id="Tabel" >
+      <table id="table" cellspacing="0" ></table> 
+    </div>
+   
+    <div id="container" >
+        <div id="timer" class="normalcolor">
+            
+        </div>
+        <section>
+            <ul>
+             <h2>INDICII</h2>
+        <li>1. Retea globala compusa din alte retele de calculatoare interconectate.</li>
+        <li>2. Permite schimbul de mesaje electronice intre persoane.</li>
+        <li>3. "Software rauvoitor".</li>
+        <li>4. Ingreuneaza functionarea internetului.</li>
+        <li>5. Aduna informatii despre utilizatorul calculatorului.</li>
+        <li>6. Doreste sa acceseze neautorizat calculatorul.</li>
+        <li>7. Dispozitiv de securitate care monitorizeaza traficul de retea.</li>
+        <li>8. Program de navigare pe Internet.</li>
+        <li>9. Impune norme de comportament general in spatiul virtual.</li>
+        <li>10. Serviciu online de transfer de fisiere.</li>
+    </ul>
+        </section>
+        <button id="checkButton" onclick="keyCheck()"style="margin-left: 150px">CHECK</button>
+        <button id="clearButton" onclick="colorClear()">CLEAR WRONG</button>
+    </div>
+    <audio id="errorSound">
+        <source src="error.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="successSound">
+        <source src="succes.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="victorySound">
+        <source src="Sound.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+</body>
+<script>
+
+    //1- White
+    //0 - Black
+
+    var values = ["bwwwwwwwbbbbbb","bbbbbwbbbwbbwb","bbbwbwbbwwwwww","bbbwbwbbbwbbwb","bwwwwwwwwwwbwb","bbbwbwbbbwbbwb","bwwwwwwbbwbbbb","bbbwbbbbbwbbbb","wwwwwwwwbwbbbb","bbbwbbbbbbbbbb","bbwwwwwwwbbbbb"];
+    var ans_keys=["-BROWSER------", "-----P---F--E-","---N-Y--VIERME","---E-W---R--A-","-WETRANSFER-I-","---I-R---W--L-","-HACKER--A----","---H-----L----","INTERNET-L----","---T----------","--MALWARE-----"]
+    var total_rows = values.length;
+    var total_cols = values[0].length;
+    var spans_value = { "0,1": "8", "0,5": "5", "1,12": "2","2,8":"4","6,1":"6","1,9":"7","2,3":"9","4,1":"10","10,2":"3","8,0":"1" };
+    var current = null;
+    function createFrameBoxes() {
+        var boxes = "";
+        for (let i = 0; i < values.length; i++) {
+            boxes += "<tr>";
+            for (let j = 0; j < values[i].length; j++) {
+                var s = spans_value[i + "," + j] ?? "";
+                boxes += `<th onclick='myClick(this)' row='${i}' col='${j}' class="${values[i][j]}"><span>${s}</span><b></b></th>`;
+            }
+            boxes += "</tr>";
+        }
+        document.getElementById("table").innerHTML = boxes;
+    }
+
+    createFrameBoxes();
+    var startTime,timerVar;
+    function timer() {
+        startTime = new Date().getTime();
+        timerVar = setInterval(function() {
+            var now = new Date().getTime();
+            var elapsedTime = now - startTime;
+            var minutes = Math.floor(elapsedTime / (1000 * 60));
+            var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+            document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+        }, 1000);
+    }
+    window.onload = timer();
+    window.onload = timerHasFinished = false;
+
+    function myClick(box) {
+
+        if (box.classList.contains("w")) {
+
+            var row = box.getAttribute("row");
+            var col = box.getAttribute("col");
+            if (current != null) {
+                current.style.background = "white";
+            }
+            current = box;
+            current.style.background = "orange";
+        }
+
+    }
+
+    document.body.onkeyup = function (event) {
+        if (current != null) {
+            console.log(event);
+
+            if (event.keyCode >= 37 && event.keyCode <= 40) {
+                nextMover(event.keyCode);
+            }
+            if (event.keyCode>=65&&event.keyCode<=90) {
+            current.querySelector("b").innerHTML=event.key.toUpperCase();
+            }
+            if (event.keyCode==8|| event.keyCode==46) {
+             current.querySelector("b").innerHTML="";
+            }
+        }
+    }
+
+    function nextMover(code) {
+        var row = parseInt(current.getAttribute("row"));
+        var col = parseInt(current.getAttribute("col"));
+        switch (code) {
+            case 37://left
+                col = col == 0 ? total_cols - 1 : col - 1;
+                break;
+            case 38://top
+                row = row == 0 ? total_rows - 1 : row - 1;
+                break;
+            case 39: //right
+                col = col == total_cols - 1 ? 0 : col + 1;
+                break;
+            case 40://bottom
+                row = row == total_rows - 1 ? 0 : row + 1;
+                break;
+            default:
+                break;
+        }
+        if (current.classList.contains("w")) {
+            current.style.background = "white";
+        }
+
+        current = document.querySelectorAll("tr")[row].querySelectorAll("th")[col];
+        if (current.classList.contains("b")) { //if black than move again
+            nextMover(code);
+        }
+        else {
+            current.style.background = "orange";
+        }
+    } 
+    var cnt1=0;
+    var cnt2=0 ;
+    var red=[];
+    var green=[];
+    
+    function colorClear(){
+        red.forEach(element=>{
+            element.style.background="white";
+            element.querySelector("b").innerHTML="";
+        });
+        green.forEach(element=>{
+            element.style.background="white";
+            
+        });
+        
+    }
+    
+    function keyCheck(){
+        cnt1 = 0;
+        cnt2 = 0;
+        var whites = document.querySelectorAll(".w");
+        whites.forEach(element => {
+
+            var text = element.querySelector("b").innerHTML;
+            if (text.length > 0) 
+            {
+                var row = element.getAttribute("row");
+                var col = element.getAttribute("col");
+                if (text == ans_keys[row][col]) {
+                    element.style.background = "greenyellow";
+                    green.push(element);
+                    cnt2++;
+                } else {
+                    element.style.background = "red";
+                    red.push(element);
+                    cnt1++;
+                }
+            }
+        });
+        if (cnt1 > 0) {
+            document.getElementById("errorSound").play(); 
+        } else if (cnt2 >= 1 && cnt2 < 63) {
+            document.getElementById("successSound").play(); 
+        } else if (cnt2 == 63) {
+            document.getElementById("victorySound").play(); 
+            clearInterval(timerVar);
+            var now = new Date().getTime();
+            var elapsedTime = now - startTime;
+            var minutes = Math.floor(elapsedTime / (1000 * 60));
+            var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+            alert("Ai castigat! Timpul tău a fost: " + minutes + " minute și " + seconds + " secunde.");
+            console.log(elapsedTime);
+        }
+    }
+
+</script>
+
+</html>
