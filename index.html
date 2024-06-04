@@ -26,7 +26,7 @@
             width: 2200px;
         }
         #container {
-            width: 750px;
+            width: 1250px;
           
             margin: 1106px;
             background-color: white; 
@@ -174,20 +174,18 @@
         </div>
         <section>
             <ul>
-             <h2>INDICII</h2>
-        <li>1. Retea globala compusa din alte retele de calculatoare interconectate.</li>
-        <li>2. Permite schimbul de mesaje electronice intre persoane.</li>
-        <li>3. "Software rauvoitor".</li>
-        <li>4. Ingreuneaza functionarea internetului.</li>
-        <li>5. Aduna informatii despre utilizatorul calculatorului.</li>
-        <li>6. Doreste sa acceseze neautorizat calculatorul.</li>
-        <li>7. Dispozitiv de securitate care monitorizeaza traficul de retea.</li>
-        <li>8. Program de navigare pe Internet.</li>
-        <li>9. Impune norme de comportament general in spatiul virtual.</li>
-        <li>10. Serviciu online de transfer de fisiere.</li>
+             <h2>CLUES</h2>
+        <li>1. The main EU Commission target regarding green / sustainable agriculture is to ensure food security in conditions taking into account the geopolitical uncertainties, climate change and _____ loss.</li>
+        <li>2. The ___ / sustainable agriculture is the type of agricultural activity to supply society's food and textile needs in the present without compromising the ability of future generations to meet their own needs.</li>
+        <li>3. The EU's Common Agriculture Policy (_._._.) is central to the EU Green Deal & its Farm to Fork and Biodiversity strategies as is built around three main goals, highly important to these policy initiatives and strategies, to achieve a sustainable system of agriculture in the EU: economic sustainability, environmental sustainability, and. the social sustainability of farms.</li>
+        <li>4. For achieving the Organic farming Action Plan' objectives the EU ___ intend to assure important budgetary allowance for research and innovation, at least 30% of the budget for research and innovation to actions in the fields of agriculture, forestry and rural areas comprising topics specific to or relevant for the organic sector</li>
+        <li>5. The urgent objectives of sustainable agriculture are to reduce dependency on ____ and antimicrobials, reduce excess fertilization, increase organic farming, improve animal welfare, and reverse biodiversity loss.</li>
+        <li>6. Organic farming does not use synthetic chemicals such as fertilizers, herbicides, insecticides  but only uses natural / bio fertilizers, applies natural-derived biocides, reduces __ erosion, decreases nitrate leaching, uses traditional crop rotation, and recycles animal wastes back into the farm.</li>
+        <li>7. The target of the EU Green Deal regarding  farming is to reach 25% of agricultural land under ___ farming by 2030.</li>
+        <li style="color:rgb(7, 139, 0)">The word in the middle is the answer to this question: What field should we strive to make it more sustainable and chemical free?</li>
     </ul>
         </section>
-        <button id="checkButton" onclick="keyCheck()"style="margin-left: 150px">CHECK</button>
+        <button id="checkButton" onclick="keyCheck()"style="margin-left: 400px">CHECK</button>
         <button id="clearButton" onclick="colorClear()">CLEAR WRONG</button>
     </div>
     <audio id="errorSound">
@@ -206,14 +204,14 @@
 </body>
 <script>
 
-    //1- White
-    //0 - Black
+    //w- White
+    //b - Black
 
-    var values = ["bwwwwwwwbbbbbb","bbbbbwbbbwbbwb","bbbwbwbbwwwwww","bbbwbwbbbwbbwb","bwwwwwwwwwwbwb","bbbwbwbbbwbbwb","bwwwwwwbbwbbbb","bbbwbbbbbwbbbb","wwwwwwwwbwbbbb","bbbwbbbbbbbbbb","bbwwwwwwwbbbbb"];
-    var ans_keys=["-BROWSER------", "-----P---F--E-","---N-Y--VIERME","---E-W---R--A-","-WETRANSFER-I-","---I-R---W--L-","-HACKER--A----","---H-----L----","INTERNET-L----","---T----------","--MALWARE-----"]
+    var values = ["bbbbbbwwwbbbbb","bbbbbbbwwwwwbb","wwwwwwwwwwwwbb","bbbwwwwwwwwwwb","bbbbbbbwbbbbbb","bbbbbbbwbbbbbb","bbbbwwwwbbbbbb","bbbbwwwwwwwwww","bbbbbbbwbbbbbb","bbbbbbwwwwwwwb","bbbbbbbwbbbbbb"];
+    var ans_keys=["------CAP-----", "-------GREEN--","BIODIVERSITY--","---COMMISSION-","-------C------","-------U-------","----SOIL------","----PESTICIDES","-------U------","------ORGANIC-","-------E------"]
     var total_rows = values.length;
     var total_cols = values[0].length;
-    var spans_value = { "0,1": "8", "0,5": "5", "1,12": "2","2,8":"4","6,1":"6","1,9":"7","2,3":"9","4,1":"10","10,2":"3","8,0":"1" };
+    var spans_value = { "0,6": "3", "2,0": "1", "1,7": "2","3,3":"4","7,4":"5","6,4":"6","9,6":"7" };
     var current = null;
     function createFrameBoxes() {
         var boxes = "";
@@ -298,7 +296,7 @@
         }
 
         current = document.querySelectorAll("tr")[row].querySelectorAll("th")[col];
-        if (current.classList.contains("b")) { //if black than move again
+        if (current.classList.contains("b")) { 
             nextMover(code);
         }
         else {
@@ -346,16 +344,16 @@
         });
         if (cnt1 > 0) {
             document.getElementById("errorSound").play(); 
-        } else if (cnt2 >= 1 && cnt2 < 63) {
+        } else if (cnt2 >= 1 && cnt2 < 55) {
             document.getElementById("successSound").play(); 
-        } else if (cnt2 == 63) {
+        } else if (cnt2 == 55) {
             document.getElementById("victorySound").play(); 
             clearInterval(timerVar);
             var now = new Date().getTime();
             var elapsedTime = now - startTime;
             var minutes = Math.floor(elapsedTime / (1000 * 60));
             var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
-            alert("Ai castigat! Timpul tău a fost: " + minutes + " minute și " + seconds + " secunde.");
+            alert("Ai castigat! Timpul tÄƒu a fost: " + minutes + " minute È™i " + seconds + " secunde.");
             console.log(elapsedTime);
         }
     }
